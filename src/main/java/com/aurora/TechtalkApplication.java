@@ -1,12 +1,17 @@
 package com.aurora;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+
 
 @SpringBootApplication
-public class TechtalkApplication {
+public class TechtalkApplication
+{
 
-	public static void main(String[] args) {
-		SpringApplication.run(TechtalkApplication.class, args);
-	}
+    public static void main(String[] args)
+    {
+        new SpringApplicationBuilder(TechtalkApplication.class)
+                .profiles("dev")
+                .run(args);
+    }
 }

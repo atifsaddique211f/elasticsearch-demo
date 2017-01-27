@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: techtalk
+server:
+    port: 9000
