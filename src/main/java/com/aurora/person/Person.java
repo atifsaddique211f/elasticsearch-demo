@@ -1,7 +1,11 @@
 package com.aurora.person;
 
 import com.aurora.product.Product;
+import com.aurora.shared.CustomLocalDateSerializer;
+import com.aurora.shared.ISO8601LocalDateDeserializer;
 import com.aurora.shared.LocalDatePersistenceConverter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.joda.time.LocalDate;
 
 import javax.persistence.*;
@@ -32,6 +36,8 @@ public class Person
     private String telephoneNumber;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @JsonDeserialize(using = ISO8601LocalDateDeserializer.class)
     private LocalDate dateOfBirth;
 
     private Integer age;
