@@ -38,6 +38,7 @@ dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 
+	runtime("net.java.dev.jna:jna")
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
