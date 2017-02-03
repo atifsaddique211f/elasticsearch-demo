@@ -36,7 +36,7 @@ dependencies {
 	compile('javax.inject:javax.inject:1')
 	compile('joda-time:joda-time:2.9.7')
 
-//	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
