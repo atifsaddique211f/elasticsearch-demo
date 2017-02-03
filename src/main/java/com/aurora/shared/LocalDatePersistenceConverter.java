@@ -1,0 +1,31 @@
+package com.aurora.shared;
+
+import org.joda.time.LocalDate;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
+@Converter
+public class LocalDatePersistenceConverter implements AttributeConverter<LocalDate, java.sql.Date>
+{
+
+    @Override
+    public java.sql.Date convertToDatabaseColumn(LocalDate entityValue)
+    {
+        if (entityValue != null)
+        {
+            return java.sql.Date.valueOf(entityValue.toString());
+        }
+        return null;
+    }
+
+    @Override
+    public LocalDate convertToEntityAttribute(java.sql.Date databaseValue)
+    {
+        if (databaseValue != null)
+        {
+            return LocalDate.fromDateFields(databaseValue);
+        }
+        return null;
+    }
+}

@@ -1,29 +1,34 @@
 package com.aurora.product;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 
 /**
  * Created by atif on 1/27/17.
  */
 @Entity
-@Table(name = "test")
+@Table(name = "product")
 public class Product
 {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
     private String name;
+
+    private double price;
 
     public Product()
     {
 
     }
 
-    public Product(String name)
+    public Product(String name, double price)
     {
         this.name = name;
+        this.price = price;
     }
 
     public Long getId()
@@ -44,5 +49,15 @@ public class Product
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(double price)
+    {
+        this.price = price;
     }
 }

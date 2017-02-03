@@ -1,5 +1,6 @@
 package com.aurora.product;
 
+import com.aurora.person.PersonRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,8 @@ public class ProductController
 {
     @Inject
     private ProductRepository productRepository;
+    @Inject
+    private PersonRepository personRepository;
 
     @RequestMapping(value = "/api/v1/products",
             method = RequestMethod.GET)

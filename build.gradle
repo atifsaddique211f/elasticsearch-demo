@@ -34,6 +34,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('javax.inject:javax.inject:1')
+
+	compile group: 'io.codearte.jfairy', name: 'jfairy', version: '0.5.0'
+
 //	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 
 	runtime('org.springframework.boot:spring-boot-devtools')
