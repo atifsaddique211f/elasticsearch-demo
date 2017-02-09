@@ -1,6 +1,5 @@
 package com.aurora.search;
 
-import com.aurora.product.Product;
 import com.aurora.shared.CustomLocalDateSerializer;
 import com.aurora.shared.ISO8601LocalDateDeserializer;
 import com.aurora.shared.LocalDatePersistenceConverter;
@@ -64,10 +63,13 @@ public class Person
     private String nationalIdentificationNumber;
     private String passportNumber;
 
+    @Field(type = FieldType.Object)
     private Address address;
 
+    @Field(type = FieldType.Object)
     private Company company;
 
+    @Field(type = FieldType.Object)
     private Set<Product> products = new HashSet<>();
 
     public static enum Sex

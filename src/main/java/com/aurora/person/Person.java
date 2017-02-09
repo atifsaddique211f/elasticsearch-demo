@@ -270,4 +270,9 @@ public class Person
     {
         this.products.remove(product);
     }
+
+    public Set<Product> getProducts()
+    {
+        return products;
+    }
 }

@@ -47,6 +47,42 @@ public class PersonSearchController
         return personRepository.search(searchQuery).getContent();
     }
 
+    @RequestMapping(value = "/api/v2/person1",
+            method = RequestMethod.GET)
+    public List<Person> getPerson1(@RequestParam String name,
+                                   Pageable pageable)
+    {
+        BoolQueryBuilder builder = boolQuery();
+        BoolQueryBuilder builder1 = boolQuery();
+        builder1.should(matchQuery("firstName", name));
+        builder1.should(matchQuery("lastName", name));
+        builder.must(builder1);
+
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(builder)
+                .withPageable(pageable)
+                .build();
+        return personRepository.search(searchQuery).getContent();
+    }
+
+    @RequestMapping(value = "/api/v2/person2",
+            method = RequestMethod.GET)
+    public List<Person> getPerson2(@RequestParam String name,
+                                   Pageable pageable)
+    {
+        BoolQueryBuilder builder = boolQuery();
+        BoolQueryBuilder builder1 = boolQuery();
+        builder1.should(matchQuery("firstName", name));
+        builder1.should(matchQuery("lastName", name));
+        builder.must(builder1);
+
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(builder)
+                .withPageable(pageable)
+                .build();
+        return personRepository.search(searchQuery).getContent();
+    }
+
 }
 
 

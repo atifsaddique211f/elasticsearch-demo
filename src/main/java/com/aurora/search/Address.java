@@ -1,6 +1,9 @@
 package com.aurora.search;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * Created by atif on 2/3/17.
@@ -13,8 +16,14 @@ public class Address
 
     private String postalCode;
 
+    @Field(type = FieldType.String,
+            store = true,
+            index = FieldIndex.analyzed)
     private String city;
 
+    @Field(type = FieldType.String,
+            store = true,
+            index = FieldIndex.analyzed)
     private String street;
 
     private String streetNumber;
