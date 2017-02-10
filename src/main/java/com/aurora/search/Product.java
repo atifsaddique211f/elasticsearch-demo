@@ -1,7 +1,6 @@
 package com.aurora.search;
 
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -11,7 +10,9 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  */
 public class Product
 {
-    @Id
+    @Field(type = FieldType.String,
+            store = true,
+            index = FieldIndex.not_analyzed)
     private Long id;
 
     @Field(type = FieldType.String,

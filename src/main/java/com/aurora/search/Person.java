@@ -19,7 +19,7 @@ import java.util.Set;
 /**
  * Created by atif on 2/3/17.
  */
-@Document(indexName = "provider", type = "provider", shards = 1, replicas = 0, refreshInterval = "-1")
+@Document(indexName = "person", type = "person", shards = 1, replicas = 0, refreshInterval = "-1")
 @Setting(settingPath = "/es/settings.json")
 public class Person
 {
@@ -281,5 +281,15 @@ public class Person
     public void removeFromProduct(Product product)
     {
         this.products.remove(product);
+    }
+
+    public Set<Product> getProducts()
+    {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products)
+    {
+        this.products = products;
     }
 }
