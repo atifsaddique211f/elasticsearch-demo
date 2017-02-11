@@ -61,6 +61,8 @@ public class PersonSearchService
                     String text = field.getFragments()[0].toString();
                     if (text != null && !suggestions.contains(text))
                     {
+                        text=text.replace("</em>","");
+                        text=text.replace("<em>","");
                         suggestions.add(text);
                     }
                 }
