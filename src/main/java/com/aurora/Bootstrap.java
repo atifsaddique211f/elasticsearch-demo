@@ -67,7 +67,7 @@ public class Bootstrap
                 person.setNationalIdentificationNumber(p.getNationalIdentificationNumber());
                 person.setPassportNumber(p.getPassportNumber());
                 person.setPassword(p.getPassword());
-                person.setSex(Person.Sex.valueOf(p.getSex().name()));
+                person.setGender(Person.Gender.valueOf(p.getSex().name()));
                 person.setTelephoneNumber(p.getTelephoneNumber());
                 person.setUsername(p.getUsername());
                 personSearchRepository.save(person);
