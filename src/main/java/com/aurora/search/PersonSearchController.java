@@ -1,5 +1,6 @@
 package com.aurora.search;
 
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator.AND;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -160,11 +162,34 @@ public class PersonSearchController
     //type ahead query with highlighting
     @RequestMapping(value = "/api/v2/search/typeahead",
             method = RequestMethod.GET)
-    public Set<String> getPerson8(@RequestParam String query, Pageable pageable)
+    public Set<String> getResultsListForTypeAHead(@RequestParam String query, Pageable pageable)
     {
         String[] fields = {"email", "firstName", "lastName", "middleName", "telephoneNumber", "products.name", "company.name", "address.city", "address.street"};
 
         return personSearchService.getResultsListForTypeAHead("person", query, pageable, fields);
+    }
+
+
+    //fuzziness query
+    @RequestMapping(value = "/api/v2/person8",
+            method = RequestMethod.GET)
+    public List<Person> getPerson8(@RequestParam String query, Pageable pageable)
+    {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(multiMatchQuery(query)
+                        .field("email")
+                        .field("firstName")
+                        .field("lastName")
+                        .field("middleName")
+                        .field("telephoneNumber")
+                        .field("products.name")
+                        .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)
+                        .operator(AND)
+                        .fuzziness(Fuzziness.TWO)
+                        .prefixLength(3))
+                .withPageable(pageable)
+                .build();
+        return personRepository.search(searchQuery).getContent();
     }
 }
 
