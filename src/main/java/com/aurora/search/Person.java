@@ -29,20 +29,20 @@ public class Person
             index = FieldIndex.not_analyzed)
     private Long id;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String firstName;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String middleName;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String lastName;
+
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String email;
     private String username;
     private String password;
@@ -57,10 +57,16 @@ public class Person
     @JsonDeserialize(using = ISO8601LocalDateDeserializer.class)
     private LocalDate dateOfBirth;
 
+    @Field(type = FieldType.Integer,
+            store = true,
+            index = FieldIndex.not_analyzed)
     private Integer age;
     private String companyEmail;
     private String nationalIdentityCardNumber;
     private String nationalIdentificationNumber;
+
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String passportNumber;
 
     @Field(type = FieldType.Object)

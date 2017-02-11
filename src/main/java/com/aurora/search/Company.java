@@ -15,17 +15,18 @@ public class Company
             index = FieldIndex.not_analyzed)
     private Long id;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String name;
 
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String domain;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed,
+            searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String email;
+
     private String vatIdentificationNumber;
 
     public Company()

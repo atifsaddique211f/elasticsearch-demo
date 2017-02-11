@@ -17,14 +17,10 @@ public class Address
 
     private String postalCode;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed, searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String city;
 
-    @Field(type = FieldType.String,
-            store = true,
-            index = FieldIndex.analyzed)
+    @Field(type = FieldType.String, store = true, index = FieldIndex.analyzed, searchAnalyzer = "whitespace_analyzer", analyzer = "edge_nGram_analyzer")
     private String street;
 
     private String streetNumber;

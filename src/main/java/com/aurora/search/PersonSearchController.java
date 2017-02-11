@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
@@ -33,6 +34,9 @@ public class PersonSearchController
 
     @Inject
     private PersonSearchRepository personRepository;
+
+    @Inject
+    private PersonSearchService personSearchService;
 
     @RequestMapping(value = "/api/v2/persons",
             method = RequestMethod.GET)
@@ -76,7 +80,7 @@ public class PersonSearchController
     public List<Person> getPerson3(Pageable pageable)
     {
 
-      RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("age").to(40).from(20);
+        RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("age").to(40).from(20);
 
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -91,7 +95,7 @@ public class PersonSearchController
     public List<Person> getPerson4(Pageable pageable)
     {
 
-      RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("products.price").to(100000).from(0);
+        RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("products.price").to(100000).from(0);
 
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(queryBuilder)
@@ -105,11 +109,11 @@ public class PersonSearchController
             method = RequestMethod.GET)
     public List<Person> getPerson6(Pageable pageable)
     {
-        TermsBuilder termsBuilder = AggregationBuilders.terms("prices")
-                .field("products.price").order(Terms.Order.aggregation("_count",true));
+//        TermsBuilder termsBuilder = AggregationBuilders.terms("prices")
+//                .field("products.price")
+//                .order(Terms.Order.aggregation("_count", false));
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(matchAllQuery())
-                .addAggregation(termsBuilder)
                 .withPageable(pageable)
                 .build();
         return personRepository.search(searchQuery).getContent();
@@ -150,6 +154,17 @@ public class PersonSearchController
                 .withPageable(pageable)
                 .build();
         return personRepository.search(searchQuery).getContent();
+    }
+
+
+    //type ahead query with highlighting
+    @RequestMapping(value = "/api/v2/search/typeahead",
+            method = RequestMethod.GET)
+    public Set<String> getPerson8(@RequestParam String query, Pageable pageable)
+    {
+        String[] fields = {"email", "firstName", "lastName", "middleName", "telephoneNumber", "products.name", "company.name", "address.city", "address.street"};
+
+        return personSearchService.getResultsListForTypeAHead("person", query, pageable, fields);
     }
 }
 
