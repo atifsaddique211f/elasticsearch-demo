@@ -1,5 +1,6 @@
 package com.aurora.search;
 
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import java.util.List;
 
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator.AND;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -147,6 +149,29 @@ public class PersonSearchController
                         .field("telephoneNumber")
                         .field("products.name")
                         .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
+                .withPageable(pageable)
+                .build();
+        return personRepository.search(searchQuery).getContent();
+    }
+
+
+    //fuzziness query
+    @RequestMapping(value = "/api/v2/person8",
+            method = RequestMethod.GET)
+    public List<Person> getPerson8(@RequestParam String query, Pageable pageable)
+    {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(multiMatchQuery(query)
+                        .field("email")
+                        .field("firstName")
+                        .field("lastName")
+                        .field("middleName")
+                        .field("telephoneNumber")
+                        .field("products.name")
+                        .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)
+                        .operator(AND)
+                        .fuzziness(Fuzziness.TWO)
+                        .prefixLength(3))
                 .withPageable(pageable)
                 .build();
         return personRepository.search(searchQuery).getContent();
