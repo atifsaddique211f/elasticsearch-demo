@@ -48,7 +48,7 @@ public class Person
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Sex sex;
+    private Gender gender;
 
     private String telephoneNumber;
 
@@ -72,7 +72,7 @@ public class Person
     @Field(type = FieldType.Object)
     private Set<Product> products = new HashSet<>();
 
-    public static enum Sex
+    public static enum Gender
     {
         MALE, FEMALE
     }
@@ -82,7 +82,7 @@ public class Person
     }
 
     public Person(String firstName, String middleName, String lastName, Address address, String email, String username,
-                  String password, Sex sex, String telephoneNumber, LocalDate dateOfBirth, Integer age,
+                  String password, Gender gender, String telephoneNumber, LocalDate dateOfBirth, Integer age,
                   String nationalIdentityCardNumber, String nationalIdentificationNumber, String passportNumber, Company company, String companyEmail)
     {
         this.nationalIdentityCardNumber = nationalIdentityCardNumber;
@@ -93,7 +93,7 @@ public class Person
         this.email = email;
         this.username = username;
         this.password = password;
-        this.sex = sex;
+        this.gender = gender;
         this.telephoneNumber = telephoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
@@ -183,14 +183,14 @@ public class Person
         this.password = password;
     }
 
-    public Sex getSex()
+    public Gender getGender()
     {
-        return sex;
+        return gender;
     }
 
-    public void setSex(Sex sex)
+    public void setGender(Gender gender)
     {
-        this.sex = sex;
+        this.gender = gender;
     }
 
     public String getTelephoneNumber()

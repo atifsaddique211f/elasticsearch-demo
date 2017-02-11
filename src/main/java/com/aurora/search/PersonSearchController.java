@@ -2,15 +2,12 @@ package com.aurora.search;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
-import org.joda.time.LocalDate;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,12 +118,12 @@ public class PersonSearchController
     //return all person of a specific gender
     @RequestMapping(value = "/api/v2/person5",
             method = RequestMethod.GET)
-    public List<Person> getPerson5(@RequestParam Person.Sex sex,
+    public List<Person> getPerson5(@RequestParam Person.Gender gender,
                                    Pageable pageable)
     {
         BoolQueryBuilder builder = boolQuery();
         BoolQueryBuilder builder1 = boolQuery();
-        builder1.must(matchQuery("sex", sex));
+        builder1.must(matchQuery("gender", gender));
         builder.must(builder1);
 
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
