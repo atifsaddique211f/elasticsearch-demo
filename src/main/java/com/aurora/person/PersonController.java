@@ -28,4 +28,21 @@ public class PersonController
         return personRepository.getAllByName(name, pageable);
     }
 
+    @RequestMapping(value = "/api/v1/persons/company",
+            method = RequestMethod.GET)
+    public List<Person> getPersonsByCompanyNameOrDomain(@RequestParam(required = false) String name,
+                                                        @RequestParam(required = false) String domain,
+                                   Pageable pageable)
+    {
+        return personRepository.getAllByCompany_NameOrCompany_Domain(name, domain, pageable);
+    }
+
+    @RequestMapping(value = "/api/v1/persons/age",
+            method = RequestMethod.GET)
+    public List<Person> getPersonsByAge(@RequestParam int value,
+                                   Pageable pageable)
+    {
+        return personRepository.getAllByAgeLessThan(value, pageable);
+    }
+
 }
