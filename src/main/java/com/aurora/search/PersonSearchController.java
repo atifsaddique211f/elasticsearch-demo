@@ -5,9 +5,6 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -59,7 +56,7 @@ public class PersonSearchController
     }
 
     // search person by company domain
-    @RequestMapping(value = "/api/v2/person1",
+    @RequestMapping(value = "/api/v2/persons/company",
             method = RequestMethod.GET)
     public List<Person> getPerson1(@RequestParam String companyDomain,
                                    Pageable pageable)
@@ -77,7 +74,7 @@ public class PersonSearchController
     }
 
     // search all person between age 20-40
-    @RequestMapping(value = "/api/v2/person3",
+    @RequestMapping(value = "/api/v2/persons/age",
             method = RequestMethod.GET)
     public List<Person> getPerson3(Pageable pageable)
     {
@@ -92,7 +89,7 @@ public class PersonSearchController
     }
 
     //search all products whose price between 0-100000
-    @RequestMapping(value = "/api/v2/person4",
+    @RequestMapping(value = "/api/v2/persons/price",
             method = RequestMethod.GET)
     public List<Person> getPerson4(Pageable pageable)
     {
@@ -122,7 +119,7 @@ public class PersonSearchController
     }
 
     //return all person of a specific gender
-    @RequestMapping(value = "/api/v2/person5",
+    @RequestMapping(value = "/api/v2/persons/gender",
             method = RequestMethod.GET)
     public List<Person> getPerson5(@RequestParam Person.Gender gender,
                                    Pageable pageable)
@@ -140,7 +137,7 @@ public class PersonSearchController
     }
 
     //multisearch query
-    @RequestMapping(value = "/api/v2/person7",
+    @RequestMapping(value = "/api/v2/persons/multisearch",
             method = RequestMethod.GET)
     public List<Person> getPerson7(@RequestParam String query, Pageable pageable)
     {
@@ -171,9 +168,9 @@ public class PersonSearchController
 
 
     //fuzziness query
-    @RequestMapping(value = "/api/v2/person8",
+    @RequestMapping(value = "/api/v2/persons/fuzziness",
             method = RequestMethod.GET)
-    public List<Person> getPerson8(@RequestParam String query, Pageable pageable)
+    public List<Person> getPersonsByFuzzyQuery(@RequestParam String query, Pageable pageable)
     {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(multiMatchQuery(query)
