@@ -103,21 +103,6 @@ public class PersonSearchController
         return personRepository.search(searchQuery).getContent();
     }
 
-    //search all persons with most sales (still needs to be fixed)
-    @RequestMapping(value = "/api/v2/person6",
-            method = RequestMethod.GET)
-    public List<Person> getPerson6(Pageable pageable)
-    {
-//        TermsBuilder termsBuilder = AggregationBuilders.terms("prices")
-//                .field("products.price")
-//                .order(Terms.Order.aggregation("_count", false));
-        SearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withQuery(matchAllQuery())
-                .withPageable(pageable)
-                .build();
-        return personRepository.search(searchQuery).getContent();
-    }
-
     //return all person of a specific gender
     @RequestMapping(value = "/api/v2/persons/gender",
             method = RequestMethod.GET)
